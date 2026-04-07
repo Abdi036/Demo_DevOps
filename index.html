@@ -21,7 +21,9 @@
       <div class="choices">
         <button class="choice-btn rock" data-choice="rock">🪨 Rock</button>
         <button class="choice-btn paper" data-choice="paper">📄 Paper</button>
-        <button class="choice-btn scissors" data-choice="scissors">✂️ Scissors</button>
+        <button class="choice-btn scissors" data-choice="scissors">
+          ✂️ Scissors
+        </button>
       </div>
 
       <section class="result-box">
@@ -37,15 +39,23 @@
       <button id="resetBtn" class="reset-btn">Reset Score</button>
     </main>
 
-    <div id="rulesPopup" class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+    <div
+      id="rulesPopup"
+      class="popup-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="popupTitle"
+    >
       <div class="popup-card">
         <h2 id="popupTitle">How the Game Works</h2>
         <p>
-          Choose Rock, Paper, or Scissors. The computer picks one randomly.
-          Rock beats Scissors, Scissors beats Paper, and Paper beats Rock.
-          Same choice means a draw.
+          Choose Rock, Paper, or Scissors. The computer picks one randomly. Rock
+          beats Scissors, Scissors beats Paper, and Paper beats Rock. Same
+          choice means a draw.
         </p>
-        <button id="closePopupBtn" class="popup-close-btn" type="button">Start Playing</button>
+        <button id="closePopupBtn" class="popup-close-btn" type="button">
+          Start Playing
+        </button>
       </div>
     </div>
 
