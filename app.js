@@ -21,13 +21,13 @@ const riskLabels = {
   2: "2 - Low Risk",
   3: "3 - Medium Risk",
   4: "4 - High Risk",
-  5: "5 - Critical Change"
+  5: "5 - Critical Change",
 };
 
 const envPenalty = {
   dev: 0,
   staging: 0.06,
-  prod: 0.12
+  prod: 0.12,
 };
 
 const stages = [
@@ -35,7 +35,7 @@ const stages = [
   "Building artifacts",
   "Scanning security",
   "Deploying service",
-  "Validating health checks"
+  "Validating health checks",
 ];
 
 const defaultState = {
@@ -45,7 +45,7 @@ const defaultState = {
   streak: 0,
   bestStreak: 0,
   missionScore: 0,
-  history: []
+  history: [],
 };
 
 let state = loadState();
@@ -73,7 +73,7 @@ function loadState() {
     return {
       ...defaultState,
       ...parsed,
-      history: Array.isArray(parsed.history) ? parsed.history.slice(0, 8) : []
+      history: Array.isArray(parsed.history) ? parsed.history.slice(0, 8) : [],
     };
   } catch {
     return { ...defaultState };
@@ -153,7 +153,10 @@ async function runPipeline() {
     complexity: Number(complexity.value),
     chaos: chaosMode.checked,
     success,
-    at: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    at: new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
   });
   state.history = state.history.slice(0, 8);
 
@@ -186,14 +189,17 @@ function getReliabilityTier() {
 function render() {
   totalRunsEl.textContent = String(state.runs);
 
-  const successRate = state.runs ? Math.round((state.successes / state.runs) * 100) : 0;
+  const successRate = state.runs
+    ? Math.round((state.successes / state.runs) * 100)
+    : 0;
   successRateEl.textContent = `${successRate}%`;
   streakEl.textContent = `${state.streak} (best ${state.bestStreak})`;
   missionScoreEl.textContent = String(state.missionScore);
   reliabilityTag.textContent = getReliabilityTier();
 
   if (state.history.length === 0) {
-    historyList.innerHTML = '<li class="empty">No runs yet. Launch one to generate telemetry.</li>';
+    historyList.innerHTML =
+      '<li class="empty">No runs yet. Launch one to generate telemetry.</li>';
     return;
   }
 
