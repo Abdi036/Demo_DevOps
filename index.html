@@ -1,84 +1,101 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
-    <title>DevOps Demo</title>
-    <style>
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #1e3c72, #2a5298);
-        color: white;
-        text-align: center;
-      }
-
-      .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        animation: fadeIn 2s ease-in;
-      }
-
-      h1 {
-        font-size: 3rem;
-        margin-bottom: 10px;
-        animation: slideDown 1.5s ease;
-      }
-
-      p {
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-        animation: fadeIn 3s ease-in;
-      }
-
-      .badge {
-        background: #00c9a7;
-        padding: 10px 20px;
-        border-radius: 20px;
-        font-weight: bold;
-        animation: pulse 2s infinite;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      @keyframes slideDown {
-        from {
-          transform: translateY(-50px);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(0);
-          opacity: 1;
-        }
-      }
-
-      @keyframes pulse {
-        0% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.1);
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CI/CD Mission Control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
   </head>
-
   <body>
-    <div class="container">
-      <h1>🚀 DevOps CI/CD Demo</h1>
-      <p>Version 2 - CI/CD is working</p>
-      <div class="badge">✔ Auto Deployed with GitHub Actions</div>
-    </div>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+
+    <main class="app">
+      <header class="hero card reveal-up">
+        <p class="eyebrow">DevOps Demo Project</p>
+        <h1>CI/CD Mission Control</h1>
+        <p class="subtitle">
+          Run simulated deployment pipelines, track reliability streaks, and see
+          how risk affects outcomes.
+        </p>
+      </header>
+
+      <section class="controls card reveal-up delay-1">
+        <div class="field-grid">
+          <label>
+            <span>Environment</span>
+            <select id="environment">
+              <option value="dev">Dev</option>
+              <option value="staging">Staging</option>
+              <option value="prod">Production</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Change Complexity</span>
+            <input id="complexity" type="range" min="1" max="5" value="2" />
+            <small id="complexityLabel">2 - Low Risk</small>
+          </label>
+
+          <label class="inline-check">
+            <input id="chaosMode" type="checkbox" />
+            <span>Chaos Mode (higher risk, higher score)</span>
+          </label>
+        </div>
+
+        <div class="button-row">
+          <button id="runBtn" class="btn btn-primary">Run Pipeline</button>
+          <button id="resetBtn" class="btn btn-ghost">Reset Stats</button>
+        </div>
+
+        <div class="pipeline-wrap">
+          <div class="pipeline-track">
+            <div id="pipelineFill" class="pipeline-fill"></div>
+          </div>
+          <p id="statusText">Waiting for your first run...</p>
+        </div>
+      </section>
+
+      <section class="dashboard reveal-up delay-2">
+        <article class="card stat-grid">
+          <div class="stat">
+            <p>Total Runs</p>
+            <h2 id="totalRuns">0</h2>
+          </div>
+          <div class="stat">
+            <p>Success Rate</p>
+            <h2 id="successRate">0%</h2>
+          </div>
+          <div class="stat">
+            <p>Current Streak</p>
+            <h2 id="streak">0</h2>
+          </div>
+          <div class="stat">
+            <p>Mission Score</p>
+            <h2 id="missionScore">0</h2>
+          </div>
+        </article>
+
+        <article class="card history-card">
+          <div class="history-head">
+            <h3>Recent Pipeline Runs</h3>
+            <span id="reliabilityTag" class="tag">Cold Start</span>
+          </div>
+          <ul id="historyList" class="history-list">
+            <li class="empty">
+              No runs yet. Launch one to generate telemetry.
+            </li>
+          </ul>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
   </body>
 </html>
