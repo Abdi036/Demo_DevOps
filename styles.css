@@ -97,7 +97,9 @@ h1 {
   letter-spacing: 0.02em;
   cursor: pointer;
   box-shadow: 0 8px 18px rgba(124, 58, 237, 0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .choices {
@@ -117,7 +119,10 @@ h1 {
   font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
 }
 
 .choice-btn {
