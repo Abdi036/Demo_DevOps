@@ -3,98 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CI/CD Mission Control</title>
+    <title>Rock Paper Scissors</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="bg-orb orb-a"></div>
-    <div class="bg-orb orb-b"></div>
+    <main class="game">
+      <h1>Rock Paper Scissors</h1>
+      <p class="subtitle">Pick one option and play against the computer.</p>
+      <button id="helpBtn" class="help-btn" type="button">How to Play</button>
 
-    <main class="app">
-      <header class="hero card reveal-up">
-        <p class="eyebrow">DevOps Demo Project</p>
-        <h1>CI/CD Mission Control</h1>
-        <p class="subtitle">
-          Run simulated deployment pipelines, track reliability streaks, and see
-          how risk affects outcomes.
-        </p>
-      </header>
+      <div class="choices">
+        <button class="choice-btn rock" data-choice="rock">🪨 Rock</button>
+        <button class="choice-btn paper" data-choice="paper">📄 Paper</button>
+        <button class="choice-btn scissors" data-choice="scissors">✂️ Scissors</button>
+      </div>
 
-      <section class="controls card reveal-up delay-1">
-        <div class="field-grid">
-          <label>
-            <span>Environment</span>
-            <select id="environment">
-              <option value="dev">Dev</option>
-              <option value="staging">Staging</option>
-              <option value="prod">Production</option>
-            </select>
-          </label>
-
-          <label>
-            <span>Change Complexity</span>
-            <input id="complexity" type="range" min="1" max="5" value="2" />
-            <small id="complexityLabel">2 - Low Risk</small>
-          </label>
-
-          <label class="inline-check">
-            <input id="chaosMode" type="checkbox" />
-            <span>Chaos Mode (higher risk, higher score)</span>
-          </label>
-        </div>
-
-        <div class="button-row">
-          <button id="runBtn" class="btn btn-primary">Run Pipeline</button>
-          <button id="resetBtn" class="btn btn-ghost">Reset Stats</button>
-        </div>
-
-        <div class="pipeline-wrap">
-          <div class="pipeline-track">
-            <div id="pipelineFill" class="pipeline-fill"></div>
-          </div>
-          <p id="statusText">Waiting for your first run...</p>
-        </div>
+      <section class="result-box">
+        <p id="roundResult">Start the game by selecting a choice.</p>
+        <p id="pickedChoices">You: - | Computer: -</p>
       </section>
 
-      <section class="dashboard reveal-up delay-2">
-        <article class="card stat-grid">
-          <div class="stat">
-            <p>Total Runs</p>
-            <h2 id="totalRuns">0</h2>
-          </div>
-          <div class="stat">
-            <p>Success Rate</p>
-            <h2 id="successRate">0%</h2>
-          </div>
-          <div class="stat">
-            <p>Current Streak</p>
-            <h2 id="streak">0</h2>
-          </div>
-          <div class="stat">
-            <p>Mission Score</p>
-            <h2 id="missionScore">0</h2>
-          </div>
-        </article>
-
-        <article class="card history-card">
-          <div class="history-head">
-            <h3>Recent Pipeline Runs</h3>
-            <span id="reliabilityTag" class="tag">Cold Start</span>
-          </div>
-          <ul id="historyList" class="history-list">
-            <li class="empty">
-              No runs yet. Launch one to generate telemetry.
-            </li>
-          </ul>
-        </article>
+      <section class="score-box">
+        <p>Player Score: <span id="playerScore">0</span></p>
+        <p>Computer Score: <span id="computerScore">0</span></p>
       </section>
+
+      <button id="resetBtn" class="reset-btn">Reset Score</button>
     </main>
+
+    <div id="rulesPopup" class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <div class="popup-card">
+        <h2 id="popupTitle">How the Game Works</h2>
+        <p>
+          Choose Rock, Paper, or Scissors. The computer picks one randomly.
+          Rock beats Scissors, Scissors beats Paper, and Paper beats Rock.
+          Same choice means a draw.
+        </p>
+        <button id="closePopupBtn" class="popup-close-btn" type="button">Start Playing</button>
+      </div>
+    </div>
 
     <script src="app.js"></script>
   </body>
