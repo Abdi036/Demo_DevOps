@@ -3,60 +3,204 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rock Paper Scissors</title>
+    <title>DevOps Demo | CI/CD Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Bebas+Neue&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="game">
-      <h1>Rock Paper Scissors</h1>
-      <p class="subtitle">Pick one option and play against the computer.</p>
-      <button id="helpBtn" class="help-btn" type="button">How to Play</button>
+    <div class="bg-orb orb-a" aria-hidden="true"></div>
+    <div class="bg-orb orb-b" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
 
-      <div class="choices">
-        <button class="choice-btn rock" data-choice="rock">🪨 Rock</button>
-        <button class="choice-btn paper" data-choice="paper">📄 Paper</button>
-        <button class="choice-btn scissors" data-choice="scissors">
-          ✂️ Scissors
-        </button>
-      </div>
+    <div class="site-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark">DO</span>
+          <div>
+            <p class="brand-name">DevOps Demo</p>
+            <p class="brand-role">DevOps and Platform Engineering</p>
+          </div>
+        </div>
 
-      <section class="result-box">
-        <p id="roundResult">Start the game by selecting a choice.</p>
-        <p id="pickedChoices">You: - | Computer: -</p>
-      </section>
+        <nav class="nav" aria-label="Primary">
+          <button class="nav-btn is-active" type="button" data-view="home">
+            Home
+          </button>
+          <button class="nav-btn" type="button" data-view="about">About</button>
+          <button class="nav-btn" type="button" data-view="projects">
+            Projects
+          </button>
+          <button class="nav-btn" type="button" data-view="contact">
+            Contact
+          </button>
+        </nav>
+      </header>
 
-      <section class="score-box">
-        <p>Player Score: <span id="playerScore">0</span></p>
-        <p>Computer Score: <span id="computerScore">0</span></p>
-      </section>
+      <main class="app" aria-live="polite">
+        <section id="home" class="view is-active" data-view-panel="home">
+          <div class="hero reveal">
+            <p class="eyebrow">Open to DevOps and SRE opportunities</p>
+            <h1>Automating delivery with resilient CI/CD pipelines.</h1>
+            <p class="lead">
+              I build cloud-native platforms that ship faster and fail safer,
+              using GitHub Actions, Docker, Kubernetes, Terraform, and proactive
+              observability.
+            </p>
+            <div class="hero-actions">
+              <button class="cta" type="button" data-target-view="projects">
+                Explore Projects
+              </button>
+              <button
+                class="cta ghost"
+                type="button"
+                data-target-view="contact"
+              >
+                Start a Project
+              </button>
+            </div>
+          </div>
 
-      <button id="resetBtn" class="reset-btn">Reset Score</button>
-    </main>
+          <div class="metrics reveal">
+            <article>
+              <h3>120+ Deployments/Month</h3>
+              <p>Automated releases across staging and production workloads.</p>
+            </article>
+            <article>
+              <h3>65% Faster Releases</h3>
+              <p>Reduced lead time by replacing manual steps with pipelines.</p>
+            </article>
+            <article>
+              <h3>99.95% Uptime</h3>
+              <p>
+                Improved reliability with SLO-driven monitoring and alerting.
+              </p>
+            </article>
+          </div>
+        </section>
 
-    <div
-      id="rulesPopup"
-      class="popup-overlay"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="popupTitle"
-    >
-      <div class="popup-card">
-        <h2 id="popupTitle">How the Game Works</h2>
+        <section id="about" class="view" data-view-panel="about">
+          <div class="panel reveal">
+            <h2>About This Demo</h2>
+            <p>
+              This portfolio simulates real DevOps ownership across the software
+              lifecycle, from source control strategy to automated testing,
+              container delivery, infrastructure as code, and production
+              monitoring.
+            </p>
+          </div>
+
+          <div class="timeline">
+            <article class="timeline-item reveal">
+              <h3>Senior DevOps Engineer · Orbit Cloud</h3>
+              <p>2024 - Present</p>
+              <p>
+                Designed multi-environment CI/CD pipelines with gated approvals,
+                security scans, and progressive delivery strategies.
+              </p>
+            </article>
+            <article class="timeline-item reveal">
+              <h3>Platform Engineer · Northline Systems</h3>
+              <p>2022 - 2024</p>
+              <p>
+                Built reusable Terraform modules and standardized Kubernetes
+                deployment templates for service teams.
+              </p>
+            </article>
+            <article class="timeline-item reveal">
+              <h3>Cloud Operations Engineer · Freelance</h3>
+              <p>2020 - 2022</p>
+              <p>
+                Migrated legacy workloads to containerized environments and
+                introduced centralized logging and on-call runbooks.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section id="projects" class="view" data-view-panel="projects">
+          <h2 class="reveal">DevOps Projects</h2>
+          <div class="project-grid">
+            <article class="project-card reveal">
+              <p class="tag">CI/CD</p>
+              <h3>GitHub Actions Release Factory</h3>
+              <p>
+                End-to-end pipeline with linting, test matrix, container build,
+                vulnerability scan, and automated release tagging.
+              </p>
+              <a href="#" aria-label="View CI/CD release factory case study"
+                >View Case Study</a
+              >
+            </article>
+            <article class="project-card reveal">
+              <p class="tag">Kubernetes</p>
+              <h3>Zero-Downtime K8s Rollouts</h3>
+              <p>
+                Helm-based blue-green deployment flow with health checks,
+                rollback automation, and environment parity.
+              </p>
+              <a href="#" aria-label="View Kubernetes rollout case study"
+                >View Case Study</a
+              >
+            </article>
+            <article class="project-card reveal">
+              <p class="tag">Observability</p>
+              <h3>Production Reliability Stack</h3>
+              <p>
+                Unified metrics, logs, and alerts with Prometheus, Grafana, and
+                alert routing for faster incident response.
+              </p>
+              <a href="#" aria-label="View reliability stack case study"
+                >View Case Study</a
+              >
+            </article>
+          </div>
+        </section>
+
+        <section id="contact" class="view" data-view-panel="contact">
+          <div class="contact-grid reveal">
+            <div class="panel">
+              <h2>Let's Ship Reliable Systems</h2>
+              <p>
+                Share your current delivery workflow, cloud stack, and goals. I
+                can help you design secure, observable, and scalable CI/CD.
+              </p>
+              <ul class="contact-links">
+                <li>Email: devops.demo@proton.me</li>
+                <li>LinkedIn: /in/devops-demo</li>
+                <li>GitHub: /devops-demo</li>
+              </ul>
+            </div>
+
+            <form id="contactForm" class="contact-form">
+              <label>
+                Name
+                <input type="text" name="name" required />
+              </label>
+              <label>
+                Email
+                <input type="email" name="email" required />
+              </label>
+              <label>
+                Project Details
+                <textarea name="message" rows="4" required></textarea>
+              </label>
+              <button class="cta" type="submit">Send Message</button>
+              <p id="formMessage" class="form-message" aria-live="polite"></p>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
         <p>
-          Choose Rock, Paper, or Scissors. The computer picks one randomly. Rock
-          beats Scissors, Scissors beats Paper, and Paper beats Rock. Same
-          choice means a draw.
+          © <span id="year"></span> DevOps Demo. Built for CI/CD excellence.
         </p>
-        <button id="closePopupBtn" class="popup-close-btn" type="button">
-          Start Playing
-        </button>
-      </div>
+      </footer>
     </div>
 
     <script src="app.js"></script>

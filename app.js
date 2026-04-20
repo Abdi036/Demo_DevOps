@@ -1,99 +1,116 @@
-const choiceButtons = document.querySelectorAll(".choice-btn");
-const resetBtn = document.getElementById("resetBtn");
-const helpBtn = document.getElementById("helpBtn");
-const rulesPopup = document.getElementById("rulesPopup");
-const closePopupBtn = document.getElementById("closePopupBtn");
-const roundResult = document.getElementById("roundResult");
-const pickedChoices = document.getElementById("pickedChoices");
-const playerScoreEl = document.getElementById("playerScore");
-const computerScoreEl = document.getElementById("computerScore");
+const navButtons = document.querySelectorAll(".nav-btn");
+const viewPanels = document.querySelectorAll("[data-view-panel]");
+const quickActionButtons = document.querySelectorAll("[data-target-view]");
+const revealItems = document.querySelectorAll(".reveal");
+const projectCards = document.querySelectorAll(".project-card");
+const yearEl = document.getElementById("year");
+const contactForm = document.getElementById("contactForm");
+const formMessage = document.getElementById("formMessage");
 
-const choices = ["rock", "paper", "scissors"];
-const choiceEmoji = {
-  rock: "🪨 Rock",
-  paper: "📄 Paper",
-  scissors: "✂️ Scissors",
-};
+const validViews = new Set(["home", "about", "projects", "contact"]);
 
-let playerScore = 0;
-let computerScore = 0;
-
-choiceButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const playerChoice = button.dataset.choice;
-    playRound(playerChoice);
-  });
-});
-
-resetBtn.addEventListener("click", resetState);
-helpBtn.addEventListener("click", openPopup);
-closePopupBtn.addEventListener("click", closePopup);
-rulesPopup.addEventListener("click", (event) => {
-  if (event.target === rulesPopup) {
-    closePopup();
-  }
-});
-
-function openPopup() {
-  rulesPopup.classList.remove("hidden");
-}
-
-function closePopup() {
-  rulesPopup.classList.add("hidden");
-}
-
-function getComputerChoice() {
-  const randomIndex = Math.floor(Math.random() * choices.length);
-  return choices[randomIndex];
-}
-
-function getWinner(playerChoice, computerChoice) {
-  if (playerChoice === computerChoice) {
-    return "draw";
-  }
-
-  if (
-    (playerChoice === "rock" && computerChoice === "scissors") ||
-    (playerChoice === "paper" && computerChoice === "rock") ||
-    (playerChoice === "scissors" && computerChoice === "paper")
-  ) {
-    return "player";
-  }
-
-  return "computer";
-}
-
-function playRound(playerChoice) {
-  const computerChoice = getComputerChoice();
-  const winner = getWinner(playerChoice, computerChoice);
-
-  pickedChoices.textContent = `You: ${choiceEmoji[playerChoice]} | Computer: ${choiceEmoji[computerChoice]}`;
-
-  if (winner === "draw") {
-    roundResult.textContent = "It is a draw.";
+function setActiveView(viewId, pushHash = true) {
+  if (!validViews.has(viewId)) {
     return;
   }
 
-  if (winner === "player") {
-    playerScore += 1;
-    roundResult.textContent = "You win this round.";
-  } else {
-    computerScore += 1;
-    roundResult.textContent = "Computer wins this round.";
+  navButtons.forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.view === viewId);
+  });
+
+  viewPanels.forEach((panel) => {
+    const isActive = panel.dataset.viewPanel === viewId;
+    panel.classList.toggle("is-active", isActive);
+  });
+
+  if (pushHash) {
+    history.replaceState(null, "", `#${viewId}`);
   }
 
-  updateScore();
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function updateScore() {
-  playerScoreEl.textContent = String(playerScore);
-  computerScoreEl.textContent = String(computerScore);
+function getInitialView() {
+  const hashView = window.location.hash.replace("#", "");
+  return validViews.has(hashView) ? hashView : "home";
 }
 
-function resetState() {
-  playerScore = 0;
-  computerScore = 0;
-  updateScore();
-  roundResult.textContent = "Score reset. Pick an option to play.";
-  pickedChoices.textContent = "You: - | Computer: -";
+function setRevealOrder() {
+  revealItems.forEach((item, index) => {
+    item.style.setProperty("--reveal-order", String(index % 6));
+  });
 }
+
+function setupProjectCardGlow() {
+  projectCards.forEach((card) => {
+    card.addEventListener("pointermove", (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty("--mx", `${x}%`);
+      card.style.setProperty("--my", `${y}%`);
+    });
+
+    card.addEventListener("pointerleave", () => {
+      card.style.removeProperty("--mx");
+      card.style.removeProperty("--my");
+    });
+  });
+}
+
+navButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    setActiveView(button.dataset.view);
+  });
+});
+
+quickActionButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    setActiveView(button.dataset.targetView);
+  });
+});
+
+window.addEventListener("hashchange", () => {
+  setActiveView(getInitialView(), false);
+});
+
+if (yearEl) {
+  yearEl.textContent = String(new Date().getFullYear());
+}
+
+if (contactForm && formMessage) {
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    formMessage.textContent = "Thanks! Your message is ready to send.";
+    contactForm.reset();
+  });
+}
+
+setRevealOrder();
+setupProjectCardGlow();
+
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        entry.target.classList.add("is-visible");
+        currentObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.2 },
+  );
+
+  revealItems.forEach((item) => {
+    observer.observe(item);
+  });
+} else {
+  revealItems.forEach((item) => {
+    item.classList.add("is-visible");
+  });
+}
+
+setActiveView(getInitialView(), false);
